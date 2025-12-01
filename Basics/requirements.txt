@@ -1,0 +1,6 @@
+pydantic
+langchain
+langchain-openai
+langgraph
+dotenv
+streamlit

@@ -1,0 +1,5 @@
+# Ignore all .env files anywhere in the repository
+.env
+
+# Ignore all directories named 'venv' anywhere in the repository
+venv/
