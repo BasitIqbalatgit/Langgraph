@@ -1,8 +1,14 @@
 langchain
 langchain-openai
-dotenv
+langchain-community
+langchain-text-splitters
+python-dotenv
 langgraph
 pydantic
 typing
 langgraph-checkpoint-sqlite
 streamlit
+faiss-cpu
+pypdf
+requests
+duckduckgo-search
