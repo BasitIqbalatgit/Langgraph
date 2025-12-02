@@ -1,4 +1,5 @@
 import operator
+import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
@@ -12,10 +13,18 @@ from langgraph.prebuilt import InjectedState
 
 load_dotenv()
 
+# Get the directory of the current file to handle different working directories
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Load the copywriter system prompt and content examples
-copywriter_prompt = open("prompts/copywriter.md", "r").read()
-linkedin_example = open("example_content/linkedin.md", "r").read()
-blog_example = open("example_content/blog.md", "r").read()
+copywriter_prompt_path = os.path.join(current_dir, "prompts", "copywriter.md")
+copywriter_prompt = open(copywriter_prompt_path, "r").read()
+
+linkedin_example_path = os.path.join(current_dir, "example_content", "linkedin.md")
+linkedin_example = open(linkedin_example_path, "r").read()
+
+blog_example_path = os.path.join(current_dir, "example_content", "blog.md")
+blog_example = open(blog_example_path, "r").read()
 
 
 class CopyWriterState(BaseModel):
@@ -52,7 +61,14 @@ async def generate_linkedin_post(
     Returns:
         A string indicating the location of the saved post.
     """
-    filename=f"ai_files/{title}.md"
+    # Get the directory of the current file
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    ai_files_dir = os.path.join(current_dir, "ai_files")
+    
+    # Create ai_files directory if it doesn't exist
+    os.makedirs(ai_files_dir, exist_ok=True)
+    
+    filename = os.path.join(ai_files_dir, f"{title}.md")
     with open(filename, "w") as f:
         f.write(content)
 
@@ -72,7 +88,14 @@ async def generate_blog_post(
     Returns:
         A string indicating the location of the saved post.
     """
-    filename=f"ai_files/{title}.md"
+    # Get the directory of the current file
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    ai_files_dir = os.path.join(current_dir, "ai_files")
+    
+    # Create ai_files directory if it doesn't exist
+    os.makedirs(ai_files_dir, exist_ok=True)
+    
+    filename = os.path.join(ai_files_dir, f"{title}.md")
     with open(filename, "w") as f:
         f.write(content)
 

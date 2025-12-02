@@ -1,4 +1,5 @@
 import operator
+import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
@@ -15,8 +16,12 @@ from langgraph.types import Command, RunnableConfig
 
 load_dotenv()
 
+# Get the directory of the current file to handle different working directories
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Load the supervisor system prompt
-supervisor_prompt = open("prompts/supervisor.md", "r").read()
+supervisor_prompt_path = os.path.join(current_dir, "prompts", "supervisor.md")
+supervisor_prompt = open(supervisor_prompt_path, "r").read()
 
 
 class SupervisorState(BaseModel):

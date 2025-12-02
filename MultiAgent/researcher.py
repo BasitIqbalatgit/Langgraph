@@ -1,4 +1,5 @@
 import operator
+import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
@@ -15,7 +16,10 @@ from langgraph.types import Command
 load_dotenv()
 
 # Load the researcher system prompt
-researcher_prompt = open("prompts/researcher.md", "r").read()
+# Get the directory of the current file to handle different working directories
+current_dir = os.path.dirname(os.path.abspath(__file__))
+prompt_path = os.path.join(current_dir, "prompts", "researcher.md")
+researcher_prompt = open(prompt_path, "r").read()
 
 
 @tool
